@@ -3,7 +3,7 @@ $config = [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=weiqihuo(hongxun)',
+            'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=weiqihuo(hongxun1)',
             'username' => 'root',
             'password' => 'root',
             'charset' => 'utf8',
