@@ -1,0 +1,4 @@
+上传codepay到网站  直接修改codepay_config.php里面的ID 密钥即可。
+
+比如原来网关使用https://codepay.fateqq.com/creat_order/?
+那么使用自己网关为 http://域名/codepay/codepay.php?
