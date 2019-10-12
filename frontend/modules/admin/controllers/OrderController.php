@@ -84,7 +84,6 @@ class OrderController extends \admin\components\Controller
                 'user.nickname',
                 'time' => 'timeRange',
                 'is_profit' => ['type' => 'select', 'header' => '是否盈亏'],
-
             ]
         ]);
 

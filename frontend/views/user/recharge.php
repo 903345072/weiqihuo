@@ -68,7 +68,7 @@
         <span>在线充值</span>
         <input checked type="radio" name="pay" value="zd" style="float:right;padding: 5px 0;"/>
     </div>
-    <div class="boxflex1" style="border-top:none;display: none">
+    <div class="boxflex1" style="border-top:none">
         <img style="width:22px;" src="/images/weixin.png" />
         <span>微信(人工客服)</span>
         <input type="radio" name="pay" value="wx" style="float:right;padding: 5px 0;"/>

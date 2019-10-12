@@ -1,5 +1,4 @@
 <?php use common\helpers\Html; ?>
-
 <?= $html ?>
 
 <p class="cl pd-5 mt-20">
@@ -9,6 +8,11 @@
     <span>手续费统计：<?= $fee >= 0 ? Html::redSpan($fee, ['class' => 'countFee']) : Html::greenSpan($fee, ['class' => 'countFee']) ?></span>
 </p>
 <script>
+
+  $('#daochu').click(function () {
+      alert(111)
+  })
+
 $(function () {
     $(".list-container").on('click', '.sellOrder', function () {
         var $this = $(this);
