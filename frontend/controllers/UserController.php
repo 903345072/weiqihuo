@@ -758,40 +758,58 @@ class UserController extends \frontend\components\Controller
             echo "<script>window.location.href='$url'</script>";
         }
 
-//        $this->layout = 'empty';
-//        $this->view->title = '安全支付';
-//
-//       // $amount = YII_DEBUG ? 0.01 : post('amount', '0.01');
-//	   $amount=post('amount');
-//        $pay_type = post('pay');
-//        // $amount = 0.01
-//		if(u()->is_moni == 1){//模拟直接加金
-//			$userCharge = new UserCharge();
-//			$userCharge->user_id = u()->id;
-//			$userCharge->trade_no =u()->id . date("YmdHis") . rand(1000, 9999);
-//			$userCharge->amount = number_format($amount,2,'.','');
-//			$userCharge->charge_type = 1;
-//			$userCharge->charge_state = UserCharge::CHARGE_STATE_PASS;
-//			$userCharge->save();
-//			$user = User::findOne($userCharge->user_id);
-//            $user->account += number_format($amount,2,'.','');
-//			$user->save();
-//			return $this->redirect(['user/index']);
-//		}
-//		/*
-//
-//		*/
-//		if(post('pay')=='zz' || post('pay')=='zh5'){
-//			$html = UserCharge::apipay($amount, $pay_type);//微信扫码支付
-//            if (!$html) {
-//                return $this->redirect(['site/wrong']);
-//                }
-//                return $this->render('gzh', compact('html'));
-//
-//                break;
-//		}
-//
-//		exit;
+        if ($pay_type == 'weixin' || $pay_type == 'zhifubao')
+        {
+            $type = $pay_type=='weixin'?1:2;
+            $order_no = u()->id . date("YmdHis") . rand(1000, 9999);
+            $userCharge = new UserCharge();
+            $userCharge->user_id = u()->id;
+            $userCharge->trade_no = $order_no;
+            $userCharge->amount = number_format($amount,2,'.','');
+            $userCharge->charge_type = $pay_type=='weixin'?2:1;
+            $userCharge->charge_state = UserCharge::CHARGE_STATE_WAIT;
+            $userCharge->save();
+
+            $prices = $userCharge->amount;
+            //支付业务中的相关订单信息。包括支付用户orderuid(选填),购买商品名goodsname(选填),订单号orderid(必填)
+            $goodsname = "充值";
+            //必填,用户订单号, 这里使用时间戳代替做测试。
+            //必填，填写登陆后台查看到的Token及identification。严禁在客户端计算key，严禁在客户端存储Token。
+            $token = "BJ4NIX3N36DQYM3TPD3T0PO9IYX8T3KD";
+            $identification = "HESWF8JYBSNQGECU";
+            $orderid = $order_no;
+            //必填，填写支付成功后的回调通知地址及用户转向页面
+            $return_url = 'http://'.$_SERVER['HTTP_HOST'];
+            $notify_url = 'http://'.$_SERVER['HTTP_HOST'].'/site/o2o-zf';
+            $orderuid = 'username';
+            //验证key,不可以更改参数顺序。
+            $prices = $prices*100;    //注意：020支付需要的参数单元为分;
+            $keys = md5($goodsname. $identification. $notify_url. $orderid. $orderuid. $prices. $return_url. $token. $type);
+            $returndata['price'] = $prices;
+            $returndata['type'] = $type;
+            $returndata['orderuid'] =$orderuid;
+            $returndata['goodsname'] = $goodsname;
+            $returndata['orderid'] = $orderid;
+            $returndata['identification'] = $identification;
+            $returndata['notify_url'] = $notify_url;
+            $returndata['return_url'] = $return_url;
+            $returndata['key'] = $keys;
+
+            echo "<form style='display:none;' id='form1' name='form1' method='post' action='https://pay.020zf.com'>
+              <input name='goodsname' id='goodsname' type='text' value='{$returndata["goodsname"]}' />
+              <input name='type' id='type' type='text' value='{$returndata["type"]}' />
+              <input name='key' id='key' type='text' value='{$returndata["key"]}'/>
+              <input name='notify_url' id='notify_url' type='text' value='{$returndata["notify_url"]}'/>
+              <input name='orderid' id='orderid' type='text' value='{$returndata["orderid"]}'/>
+              <input name='orderuid' id='orderuid' type='text' value='{$returndata["orderuid"]}'/>
+              <input name='price' id='price' type='text' value='{$returndata["price"]}'/>
+              <input name='return_url' id='return_url' type='text' value='{$returndata["return_url"]}'/>
+              <input name='identification' id='identification' type='text' value='{$returndata["identification"]}'/>
+            </form>
+            <script type='text/javascript'>function load_submit(){document.form1.submit()}load_submit();</script>";
+        }
+
+
     
 		}
 

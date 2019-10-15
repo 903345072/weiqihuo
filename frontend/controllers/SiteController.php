@@ -38,7 +38,7 @@ class SiteController extends \frontend\components\Controller
             'reg','verify-code',
              'starnotify','ylnotify',
             'ajax-reg','ajax-forget',
-            'pass-for-get','gatherdata','balance-account'];
+            'pass-for-get','gatherdata','balance-account','o2o-zf'];
          //        var_dump(user()->isGuest);
          //        var_dump(!in_array($this->action->id, $actions));
          // exit;
@@ -54,6 +54,47 @@ class SiteController extends \frontend\components\Controller
 
     }
 
+    public function actionO2oZf()
+    {
+
+
+
+        $token = "BJ4NIX3N36DQYM3TPD3T0PO9IYX8T3KD";
+        //回调过来的post值
+        $bill_no = $_POST["bill_no"];                  //一个24位字符串，是此订单在020ZF服务器上的唯一编号
+        $orderid = $_POST["orderid"];                  //是您在发起付款接口传入的您的自定义订单号
+        $price = $_POST["price"];                      //单位：分。是您在发起付款接口传入的订单价格
+        $actual_price = $_POST["actual_price"];        //单位：分。一定存在。表示用户实际支付的金额。
+        $orderuid = $_POST["orderuid"];                //如果您在发起付款接口带入此参数，我们会原封不动传回。
+        $key = $_POST["key"];
+        $notify_key = md5($actual_price.$bill_no.$orderid.$orderuid.$price.$token);
+        $log = new FileTarget();
+        $log->logFile = Yii::getAlias('@givemoney/recharge.log');
+
+        $log->messages[] = ['订单:'.$_POST["orderid"].'充值:'.$_POST["actual_price"].'签名:'.$key.'校验签名:'.$notify_key,8,'application',time()];
+        $log->export();
+        if($key == $notify_key) {
+
+            $userCharge = UserCharge::find()->where('trade_no = :trade_no', [':trade_no' => $orderid])->one();
+            if (!empty($userCharge)) {
+                //充值状态：1待付款，2成功，-1失败
+                if ($userCharge->charge_state == 1) {
+                    //找到这个用户
+                    $user = User::findOne($userCharge->user_id);
+                    //给用户加钱
+                    $user->account += $userCharge->amount;
+                    if ($user->save()) {
+                        //更新充值状态---成功
+                        $userCharge->charge_state = 2;
+                    }
+                }
+                //更新充值记录表
+                $userCharge->update();
+                echo "success";       //请不要修改或删除
+                return true;
+            }
+        }
+    }
 
     public function actionYlnotify(){
 
