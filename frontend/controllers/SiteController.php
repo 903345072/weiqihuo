@@ -91,7 +91,7 @@ class SiteController extends \frontend\components\Controller
                 //更新充值记录表
                 $userCharge->update();
                 echo "success";       //请不要修改或删除
-                return true;
+                exit();
             }
         }
     }
