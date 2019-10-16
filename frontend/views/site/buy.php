@@ -40,7 +40,7 @@
                     <label style="margin-right:.03rem"><input style="margin-left: .05rem" type="radio" name="bond"><em>100</em></label>
             </li>
             <li class="num">保证金<span id="margin" class="fr">
-			<?php if($product->code == 'coal' || $product->code == 'hf_CAD' || $product->code == 'MAF' || $product->code == 'lls' ){ ?>
+			<?php if($product->code == 'coal' ||  $product->code == 'MAF' || $product->code == 'lls' ){ ?>
 			<em class="active" data-num="1">500</em><em data-num="2">1000</em><em data-num="3">5000</em><em data-num="4">10000</em>
 			<?php }elseif($product->code == 'ltc'){ ?>
 			<em class="active" data-num="1">500</em><em data-num="2">1000</em><em data-num="3">3000</em><em data-num="4">5000</em>
@@ -60,12 +60,13 @@
                 <em class="active" data-num="1">100</em><em data-num="2">500</em><em data-num="3">1000</em><em data-num="4">5000</em>
             <?php }elseif($product->code == 'bch'){ ?>
                 <em class="active" data-num="1">500</em><em data-num="2">2000</em><em data-num="3">5000</em><em data-num="4">10000</em>
+            <?php }elseif($product->code == 'hf_CAD'){ ?>
+                <em class="active" data-num="1">100</em><em data-num="2">500</em><em data-num="3">1000</em><em data-num="4">5000</em>
 			<?php }else{ ?>
 			<em class="active" data-num="1">200</em><em data-num="2">500</em><em data-num="3">1000</em><em data-num="4">2000</em>
 			<?php } ?>
 			
-			
-			
+
 			
 			</span></li>
             <div id="bondHide">
