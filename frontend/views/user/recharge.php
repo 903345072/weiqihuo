@@ -14,7 +14,10 @@
     <div class="boxflex1 mt10">
         <div class="moneyhead">充值金额</div>
         <div class="group_btn clearfloat">
-          
+
+            <div class="btn_re btn_center">
+                <a class="btn_money">200</a>
+            </div>
             <div class="btn_re btn_center">
                 <a class="btn_money">500</a>
             </div>  
@@ -46,7 +49,7 @@
             </div>				
 
         </div>
-            充值金额：<input style="width: 75%;text-align: right;" type="number" id="amount" name="amount" value="500">元
+            充值金额：<input style="width: 75%;text-align: right;" type="number" id="amount" name="amount" value="200">元
 
 			<input type="hidden" id="is_moni" value="<?= u()->is_moni ?>"/>
 
@@ -63,21 +66,17 @@
        <input type="radio" name="pay" checked="checked" value="zfb" style="float:right;padding: 5px 0;"/>
     </div>-->
 
-    <div class="boxflex1" style="border-top:none">
+    <div class="boxflex1" style="border-top:none;display: none">
         <img style="width:22px;" src="/images/seleted.png" />
         <span>在线充值(快捷)</span>
         <input checked type="radio" name="pay" value="zd" style="float:right;padding: 5px 0;"/>
     </div>
-    <div class="boxflex1" style="border-top:none">
-        <img style="width:22px;" src="/images/weixin.png" />
-        <span>微信(人工客服)</span>
-        <input type="radio" name="pay" value="wx" style="float:right;padding: 5px 0;"/>
-    </div>
+
 
     <div class="boxflex1" style="border-top:none">
         <img style="width:22px;" src="/images/alipay.png" />
         <span>支付宝(在线)</span>
-        <input type="radio" name="pay" value="zhifubao" style="float:right;padding: 5px 0;"/>
+        <input type="radio" checked  name="pay" value="zhifubao" style="float:right;padding: 5px 0;"/>
     </div>
 
     <div class="boxflex1" style="border-top:none">
@@ -86,7 +85,11 @@
         <input type="radio" name="pay" value="weixin" style="float:right;padding: 5px 0;"/>
     </div>
 
-
+    <div class="boxflex1" style="border-top:none">
+        <img style="width:22px;" src="/images/weixin.png" />
+        <span>人工客服</span>
+        <input type="radio" name="pay" value="wx" style="float:right;padding: 5px 0;"/>
+    </div>
 
 
 
