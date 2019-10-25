@@ -26,8 +26,8 @@
                 <li data-name="dayLine">全天<span></span></li>
                 <li data-name="lightnLine">闪电<span></span></li>
                 <!--li data-name="pan">盘口<span></span></li-->	
-				<li data-name="showK">K线<span></span></li>				
-                <li data-name="kLine">日线<span></span></li>
+				<li data-name="showK">日线<span></span></li>
+                <li style="display: none" data-name="kLine">日线<span></span></li>
                 <li data-name="mKLine">分钟<i class="iconfont"></i><span></span>
                     <ul class="tr-tab2 none">
                         <li data-name="mKLine1">1M</li>
