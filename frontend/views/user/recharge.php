@@ -14,7 +14,9 @@
     <div class="boxflex1 mt10">
         <div class="moneyhead">充值金额</div>
         <div class="group_btn clearfloat">
-
+            <div class="btn_re btn_center">
+                <a class="btn_money">100</a>
+            </div>
             <div class="btn_re btn_center">
                 <a class="btn_money">200</a>
             </div>
@@ -44,9 +46,7 @@
                 <a class="btn_money">50000</a>
             </div>
 
-            <div class="btn_re btn_center">
-                <a class="btn_money">200000</a>
-            </div>				
+
 
         </div>
             充值金额：<input style="width: 75%;text-align: right;" type="number" id="amount" name="amount" value="200">元
