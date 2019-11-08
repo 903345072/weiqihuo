@@ -59,7 +59,7 @@
             <?php }elseif($product->code == 'btc_btcusdtusd'){ ?>
                 <em class="active" data-num="1">100</em><em data-num="2">500</em><em data-num="3">1000</em><em data-num="4">5000</em>
             <?php }elseif($product->code == 'bch'){ ?>
-                <em class="active" data-num="1">500</em><em data-num="2">2000</em><em data-num="3">5000</em><em data-num="4">10000</em>
+                <em class="active" data-num="1">3000</em><em data-num="2">5000</em><em data-num="3">10000</em><em data-num="4">30000</em>
             <?php }elseif($product->code == 'hf_CAD'){ ?>
                 <em class="active" data-num="1">100</em><em data-num="2">500</em><em data-num="3">1000</em><em data-num="4">5000</em>
 			<?php }else{ ?>
