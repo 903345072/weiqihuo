@@ -45,15 +45,32 @@ class InitController extends \common\components\ConsoleController {
   
  public function actionData(){
 
+     $fp = fopen(Yii::getAlias('@frontend').'/web/lock.txt', "r");
+
 	    while (1){
 	        try{
-                $this->actionGatherdata();
-               sleep(1);
+                if(flock($fp, LOCK_EX | LOCK_NB))
+                {
+                    $this->actionGatherdata();
+
+                    flock($fp,LOCK_UN);
+                } else {
+                    echo 2;
+                }
+//关闭文件
+                fclose($fp);
+
             }catch (Exception $e){
-	            
-            }   
+	            echo $e->getMessage();
+            }
+            sleep(2);
         }
-    }
+
+
+
+
+
+ }
 
     public function actionGatherdata(){
         $products = Product::find()->where(['state' => 1, 'on_sale' => 1, 'source' => 1])->select('table_name, code, trade_time, id,risk')->asArray()->all();
