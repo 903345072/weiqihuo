@@ -1901,32 +1901,35 @@ public function actionGetLineDay()//日线接口，60天累进
         try{
             $data = BalanceAccount::find()->asArray()->where(['status'=>1])->all();
             foreach ($data as $k=>$v){
+
                 $user = User::findOne($v['user_id']);
-                if ($v['profit_account']){
-                    $user->profit_account += $v['profit_account'];
-                }else{
-                    $user->loss_account += $v['loss_account'];
-                }
-                $user->account +=$v['balance'];
-                $res = $user->save();
-                if (!$res){
-                    throw new \Exception("写入失败");
-                    return false;
-                }
-                $model = BalanceAccount::findOne($v['id']);
-                $model->status = 2;
-                $res2 = $model->save(0);
-                if (!$res2){
-                    throw new \Exception("写入失败");
-                    return false;
+                if ($user){
+                    if ($v['profit_account']){
+                        $user->profit_account += $v['profit_account'];
+                    }else{
+                        $user->loss_account += $v['loss_account'];
+                    }
+                    $user->account +=$v['balance'];
+                    $res = $user->save();
+                    if (!$res){
+                        throw new \Exception("写入失败");
+                        return false;
+                    }
+                    $model = BalanceAccount::findOne($v['id']);
+                    $model->status = 2;
+                    $res2 = $model->save(0);
+                    if (!$res2){
+                        throw new \Exception("写入失败");
+                        return false;
+                    }
                 }
             }
             $trans->commit();
         }catch (\Exception $e){
-                $trans->rollBack();
-                echo $e;
+            $trans->rollBack();
+            echo $e;
         }
-        
+
     }
     
 }

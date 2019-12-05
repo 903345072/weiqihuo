@@ -63,7 +63,7 @@ class InitController extends \common\components\ConsoleController {
             }catch (Exception $e){
 	            echo $e->getMessage();
             }
-            sleep(2);
+            sleep(1);
         }
 
 
