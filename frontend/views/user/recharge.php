@@ -113,7 +113,7 @@
 <!--        <input type="radio" name="pay" value="yl" style="float:right;padding: 5px 0;"/>-->
 <!--    </div>-->
 
-    <div class="recharge-btn mt10" id="payBtn" name="wx" value="wx">确认充值</div>
+    <div style="display: none" class="recharge-btn mt10" id="payBtn" name="wx" value="wx">确认充值</div>
     <?php self::endForm() ?>
 </div>
 <?= $this->render('../site/_head') ?><!--引入公共头部-->
