@@ -9,7 +9,7 @@
         </div>
     </div>
     <?php $form = self::beginForm(['showLabel' => false, 'action' => url('user/pay/'), 'id' => 'payform']) ?>
-	
+
 
     <div class="boxflex1 mt10">
         <div class="moneyhead">充值金额</div>
@@ -22,7 +22,7 @@
             </div>
             <div class="btn_re btn_center">
                 <a class="btn_money">500</a>
-            </div>  
+            </div>
 			  <div class="btn_re btn_center">
                 <a class="btn_money">1000</a>
             </div>
@@ -34,10 +34,10 @@
                 <a class="btn_money">5000</a>
             </div>
 
-           
+
 		    <div class="btn_re btn_center">
                 <a class="btn_money">10000</a>
-            </div>		
+            </div>
 		    <div class="btn_re btn_center">
                 <a class="btn_money">20000</a>
             </div>
@@ -59,7 +59,7 @@
 		border: 1px solid red;
 	}
 	</style>
-	
+
    <!--<div class="boxflex1" style="border-top:none">
        <img style="width:22px;" src="/images/alipay.png" />
        <span>支付宝(线下)</span>
@@ -73,19 +73,19 @@
     </div>
 
 
-    <div class="boxflex1" style="border-top:none">
+    <div class="boxflex1" style="border-top:none;display:none">
         <img style="width:22px;" src="/images/alipay.png" />
         <span>支付宝(在线)</span>
         <input type="radio" checked  name="pay" value="zhifubao" style="float:right;padding: 5px 0;"/>
     </div>
 
-    <div class="boxflex1" style="border-top:none">
+    <div class="boxflex1" style="border-top:none;display:none">
         <img style="width:22px;" src="/images/weixin.png" />
         <span>微信(在线)</span>
         <input type="radio" name="pay" value="weixin" style="float:right;padding: 5px 0;"/>
     </div>
 
-    <div class="boxflex1" style="border-top:none">
+    <div class="boxflex1" style="border-top:none;display:none">
         <img style="width:22px;" src="/images/weixin.png" />
         <span>人工客服</span>
         <input type="radio" name="pay" value="wx" style="float:right;padding: 5px 0;"/>
@@ -100,7 +100,7 @@
         <span>支付宝充值</span>
         <input type="radio" name="pay" value="zd2" style="float:right;padding: 5px 0;"/>
     </div>
-  
+
    <div class="boxflex1" style="border-top:none;display:none">
         <img style="width:22px;" src="/images/arrow-left.png" />
         <span>银联支付</span>
