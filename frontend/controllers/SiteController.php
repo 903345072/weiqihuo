@@ -19,7 +19,7 @@ use common\models\BalanceAccount;
 
 class SiteController extends \frontend\components\Controller
 {
-    public $newuser;   
+    public $newuser;
 
 
 
@@ -28,12 +28,12 @@ class SiteController extends \frontend\components\Controller
         //var_dump(user()->isGuest);
         //exit;
             $actions = [
-            'ajax-update-status', 
-            'wxtoken', 'wxcode', 
+            'ajax-update-status',
+            'wxtoken', 'wxcode',
             'test', 'rule', 'captcha',
             'notify', 'ztfnotify',
-            'sdpaynotify','hx-weixin', 
-            'zynotify', 'update-user', 
+            'sdpaynotify','hx-weixin',
+            'zynotify', 'update-user',
             'update', 'tynotify','login',
             'reg','verify-code',
              'starnotify','ylnotify',
@@ -50,7 +50,7 @@ class SiteController extends \frontend\components\Controller
             else{
                 return true;
             }
-            
+
 
     }
 
@@ -266,7 +266,7 @@ public function actionStarnotify(){
                         }
                     }
                     /**************处理数据*****************/
-                    if($v['code'] == 'hkHSI' || $v['code'] == 'nf_M0'){
+                    if($v['code'] == 'hkHSI' || $v['code'] == 'nf_M0' || $v['code'] == 'nf_NI0'){
                         $price = $resultarr[6];
                         $diff = $resultarr[7];
                         $diff_rate = $resultarr[8];
@@ -599,13 +599,13 @@ public function actionStarnotify(){
         return $this->render('tip');
     }
      public function actionIndex()
-    {        
-		
+    {
+
 		//$maxOrder = Order::find()->where(['order_state' => Order::ORDER_POSITION, 'user_id' => u()->id, 'product_id' => 28])->andWhere(['>', 'created_at', date('Y-m-d 00:00:00', time())])->andWhere(['<', 'created_at', date('Y-m-d 00:00:00', strtotime('tomorrow'))])->with('product')->select('SUM(deposit) deposit')->one();
-        
+
         //var_dump($maxOrder->deposit);exit;
-	
-	
+
+
         //var_dump(session('wechat_userinfo'));
         //exit;
         //所有在售商品ON_SALE_YES
@@ -701,7 +701,7 @@ public function actionStarnotify(){
     //期货的最新价格数据集
     public function actionAjaxNewProductPrice()
     {
-        
+
 
         $product = Product::findModel(post('pid'));
         //周末休市 特殊产品不休市
@@ -737,12 +737,12 @@ public function actionStarnotify(){
             //$end=date("2017-12-02 23:23:59");
             $start=date("Y-m-d H:i:s",strtotime($end)-60*60*24);
 
-        }    
+        }
         $model = Product::findModel($id);
         $name = $model->table_name;
         $format='%Y-%m-%d %H:%i';
 
-        
+
         $data = self::db("SELECT
                  cu.price indices, UNIX_TIMESTAMP(DATE_FORMAT(time,'".$format."')) * 1000 time
         FROM
@@ -770,7 +770,7 @@ public function actionStarnotify(){
 
         }
        }
-      
+
       $jsonarr['msg']="请求成功！";
       $jsonarr['success']=true;
       $jsonarr['totalCount']=0;
@@ -780,7 +780,7 @@ public function actionStarnotify(){
       echo json_encode($jsonarr);
 
     }
-    
+
     public function actionGetLineLight()//闪电线接口，5分钟累进
     {
 
@@ -788,7 +788,7 @@ public function actionStarnotify(){
             $end=date("Y-m-d H:i:s");
             //$end=date("2017-12-02 09:52:48");
             $start=date("Y-m-d H:i:s",strtotime($end)-600);
-      
+
         $model = Product::findModel($id);
         $name = $model->table_name;
         $format='%Y-%m-%d %H:%i:%s';
@@ -809,7 +809,7 @@ public function actionStarnotify(){
         WHERE
             cu.id = sub.id")->queryAll();
         //$response->send();
-       
+
         $da=null;
        if(!empty($data))
        {
@@ -820,14 +820,14 @@ public function actionStarnotify(){
 
         }
        }
-      
+
       $jsonarr['msg']="请求成功！";
       $jsonarr['success']=true;
       $jsonarr['totalCount']=0;
       $jsonarr['resultObject']=null;
       $jsonarr['resultList']=$da;
 
-     
+
       echo json_encode($jsonarr);
 
     }
@@ -840,7 +840,7 @@ public function actionGetLineDay()//日线接口，60天累进
             $end=date("Y-m-d H:i:s");
             //$end=date("2017-12-02 09:08:59");
             $start=date("Y-m-d H:i:s",strtotime($end)-60*60*24*60);
-      
+
         $model = Product::findModel($id);
         $name = $model->table_name;
         $format='%Y-%m-%d';
@@ -864,7 +864,7 @@ public function actionGetLineDay()//日线接口，60天累进
         WHERE
             cu.id = sub.id")->queryAll();
         //$response->send();
-      
+
         $da=null;
        if(!empty($data))
        {
@@ -881,14 +881,14 @@ public function actionGetLineDay()//日线接口，60天累进
 
         }
        }
-      
+
       $jsonarr['msg']="请求成功！";
       $jsonarr['success']=true;
       $jsonarr['totalCount']=0;
       $jsonarr['resultObject']=null;
       $jsonarr['resultList']=$da;
 
-     
+
       echo json_encode($jsonarr);
 
     }
@@ -901,7 +901,7 @@ public function actionGetLineDay()//日线接口，60天累进
             $end=date("Y-m-d H:i:s");
             //$end=date("2017-12-02 09:08:59");
             $start=date("Y-m-d H:i:s",strtotime($end)-60*60*8);
-      
+
         $model = Product::findModel($id);
         $name = $model->table_name;
         $format='%Y-%m-%d %H:%i';
@@ -925,7 +925,7 @@ public function actionGetLineDay()//日线接口，60天累进
         WHERE
             cu.id = sub.id")->queryAll();
         //$response->send();
-      
+
         $da=null;
        if(!empty($data))
        {
@@ -942,19 +942,19 @@ public function actionGetLineDay()//日线接口，60天累进
 
         }
        }
-      
+
       $jsonarr['msg']="请求成功！";
       $jsonarr['success']=true;
       $jsonarr['totalCount']=0;
       $jsonarr['resultObject']=null;
       $jsonarr['resultList']=$da;
 
-     
+
       echo json_encode($jsonarr);
 
     }
     /*********************************k线数据接口结束**************************************/
-    
+
     public function actionGetHq()//获取盘面最新信息
     {
 
@@ -976,10 +976,10 @@ public function actionGetLineDay()//日线接口，60天累进
 			Product::isTradeTime($pid)?$sellhand=mt_rand(280,700):$sellhand=0;
 		}
         else{Product::isTradeTime($pid)?$sellhand=mt_rand(280,700):$sellhand=0;}
-        
+
         $product= Product::find()->Where(['id'=>$pid])->with('dataAll')->one();
-        
-            
+
+
         $model['indices']=(float)$product->dataAll->price;
         $model['open']=(float)$product->dataAll->open;
         $model['high']=(float)$product->dataAll->high;
@@ -1014,7 +1014,7 @@ public function actionGetLineDay()//日线接口，60天累进
         $jsonarr['resultObject']['isOpen']=Product::isTradeTime($pid);
         $jsonarr['totalCount']=0;
         $jsonarr['resultObject']['model']=$model;
-            
+
 
          if(!Product::isTradeTime($pid)){
 
@@ -1024,11 +1024,11 @@ public function actionGetLineDay()//日线接口，60天累进
          }
          //{"msg":"当前合约已暂停交易，请选择其他合约!","success":false,"resultList":null,"resultObject":null,"totalCount":0}
 
-        
+
 
 
         echo json_encode($jsonarr);
- 
+
     }
 
      public function actionProCloseList()//ajax获得商品列表闭市价格
@@ -1072,19 +1072,19 @@ public function actionGetLineDay()//日线接口，60天累进
     //    var_dump($arr);
     //     exit;
         // foreach ($product as $value) {
-            
+
         //     $arr[$value->name]=$value->price;
         // }
         return success('success',$arr);
     }
     public function actionStockInfo()//ajax获得商品最新信息
     {//
-        
+
         $pid=get('pid');
-        
+
         $rise = Order::find()->Where(['product_id'=>$pid,'order_state'=>1,'rise_fall'=>1])->orderBy('id DESC')->one();//买涨的手数
         $fall = Order::find()->Where(['product_id'=>$pid,'order_state'=>1,'rise_fall'=>2])->orderBy('id DESC')->one();//买跌的手数
-       
+
        if(!empty($rise))
         {$buyhand=$rise->hand;}
         else
@@ -1094,7 +1094,7 @@ public function actionGetLineDay()//日线接口，60天累进
         if(!empty($fall))
         {$sellhand=$fall->hand;}
         else{Product::isTradeTime($pid)?$sellhand=mt_rand(1,10):$sellhand=0;}
-        
+
         $product= Product::find()->Where(['id'=>$pid])->with('dataAll')->one();
         if (!empty($product)){
 			$arr['product_id']=$product->id;
@@ -1109,8 +1109,8 @@ public function actionGetLineDay()//日线接口，60天累进
 			$arr['profixMaxPrice']=$product->maxrise;
 			$arr['ostMaxPrice']=$product->maxlost;
 			$arr['singleHandlingMoney']=$product->fee;
-			
-			
+
+
 			if($product->code == 'MAF'){
 				$arr['singleMargin']=1000;
 			}elseif($product->code == 'RE'){
@@ -1123,7 +1123,7 @@ public function actionGetLineDay()//日线接口，60天累进
 				/*$arr['singleMargin']=$product->maxlost/$product->unit*$product->unit_price;*/
 				$arr['singleMargin']=1000;
 			}
-			
+
 			$arr['sell']=$sellhand;
 			$arr['buy']=$buyhand;
 			$arr['buyprice']=(double)$product->dataAll->price;
@@ -1136,7 +1136,7 @@ public function actionGetLineDay()//日线接口，60天累进
         {
             return error('数据异常');
         }
-        
+
     }
      public function actionBuyInfo()//ajax获得商品最新信息
      {
@@ -1190,8 +1190,8 @@ public function actionGetLineDay()//日线接口，60天累进
     //规则页面
      public function actionGuide()
     {
-        
-        
+
+
         $pid = get('pid');
         $product=Product::find()->where(['id'=>$pid])->one();//获取产品信息
 
@@ -1205,7 +1205,7 @@ public function actionGetLineDay()//日线接口，60天累进
         //          $product->currency='美元';
         //     }
          switch ($product->currency){
-            
+
                         case 2:
                         $product->currency= "美元";
                             break;
@@ -1233,8 +1233,8 @@ public function actionGetLineDay()//日线接口，60天累进
             $time=unserialize($product->trade_time);
             //echo $time['1']['end'];
             //exit;
-			
-			
+
+
 
             return $this->renderPartial('guide', compact('product','time','desc'));
         }
@@ -1314,7 +1314,7 @@ public function actionGetLineDay()//日线接口，60天累进
     public function actionSetMobile()
     {
         $this->view->title = '请绑定手机号码';
-        
+
         if (strlen(u()->mobile) > 10) {
             return $this->success(Yii::$app->getUser()->getReturnUrl(url(['site/index'])));
         }
@@ -1347,7 +1347,7 @@ public function actionGetLineDay()//日线接口，60天累进
 
         if(!user()->isGuest)
         {
-            return $this->redirect(['index']); 
+            return $this->redirect(['index']);
         }
         $model=new User(['scenario'=>'login']);
          if ($model->load(post())) {
@@ -1361,7 +1361,7 @@ public function actionGetLineDay()//日线接口，60天累进
         return $this->renderPartial('lognew', compact('model'));
 
     }
-    
+
 
     public function actionRegister()
     {
@@ -1413,7 +1413,7 @@ public function actionGetLineDay()//日线接口，60天累进
         {
             return error('此手机号已经注册！');
         }
-		
+
 		$usera = User::find()->where(['username' => $data['username']])->one();
 
         if(!empty($usera))
@@ -1466,13 +1466,13 @@ public function actionGetLineDay()//日线接口，60天累进
         {
             return error('请将信息填写完整后再提交！');
         }
-        
+
         if($data['password']!=$data['repassword'])
         {
             return error('两次密码不一致！');
         }
         $data['sim_account']=config('sim_money');
-       
+
         $result=User::addReg($data);
         if(!$result)
         {
@@ -1521,17 +1521,17 @@ public function actionGetLineDay()//日线接口，60天累进
         {
             return error('手机验证码与注册手机号不匹配！');
         }
-        
+
         if($data['mobile']==''||$data['password']==''||$data['repassword']==''||$data['verifyCode']=='')
         {
             return error('请将信息填写完整后再提交！');
         }
-        
+
         if($data['password']!=$data['repassword'])
         {
             return error('两次密码不一致！');
         }
-        
+
         $result=User::passforget($data);
         if(!$result)
         {
@@ -1560,7 +1560,7 @@ public function actionGetLineDay()//日线接口，60天累进
                 $user->password = $model->password;
                 $user->hashPassword()->update();
                 $user->login(false);
-                
+
                 return success(url('site/index'));
                 // return $this->goBack();
             } else {
@@ -1584,7 +1584,7 @@ public function actionGetLineDay()//日线接口，60天累进
         $mobile = post('mobile');
 		//var_dump($mobile);
 		$type = post('typecheck',1);
-		
+
 		/*验证手机号码*/
 		$usera = User::find()->where(['username' => $mobile])->one();
 
@@ -1596,26 +1596,26 @@ public function actionGetLineDay()//日线接口，60天累进
 			{
 				return ['state'=>0,'info'=>'此手机号不存在！'];
 			}
-		
-		
+
+
         require Yii::getAlias('@vendor/sms/ChuanglanSMS.php');
         // 生成随机数，非正式环境一直是1234
         $randomNum = YII_ENV_PROD ? rand(1024, 9951) : 1234;
         //$res = sendsms($mobile, $randomNum);
-		
+
         if (!preg_match('/^1[34578]\d{9}$/', $mobile)) {
-		
+
             return ['state'=>0,'info'=>'您输入的不是一个手机号码'];
         }
         $ip = str_replace('.', '_', isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null);
-		
+
 
         if (session('ip_' . $ip)) {
-		
+
             return ['state'=>0,'info'=>'短信已发送请在60秒后再次点击发送！'];
 			var_dump($ip);exit;
         }
-      
+
         /*$smsapi = "http://"; //短信网关
 		$user = 's'; //短信平台帐号
 		$content = '您好，您的验证码是' . $randomNum; //要发送的短信内容
@@ -1848,7 +1848,7 @@ public function actionGetLineDay()//日线接口，60天累进
             }
         }
         $xml.="</xml>";
-        return $xml; 
+        return $xml;
     }
 
     public function actionWrong()
@@ -1856,9 +1856,9 @@ public function actionGetLineDay()//日线接口，60天累进
         $this->view->title = '错误';
         return $this->render('/user/wrong');
     }
-    
+
     public function actionShareUrl()
-    { 
+    {
         if($this->newuser == 1) {
             $name = '已注册';
             $message = '您已经注册，5秒后自动跳转！';
@@ -1867,7 +1867,7 @@ public function actionGetLineDay()//日线接口，60天累进
             $message = '您已经注册，5秒后自动跳转！';
         }
         // $this->view->title = '错误';
-        
+
         return $this->render('error', compact('name', 'message'));
     }
 
@@ -1877,7 +1877,7 @@ public function actionGetLineDay()//日线接口，60天累进
     {
         $bool = self::db('UPDATE `user` SET blocked_account= 0 WHERE blocked_account < 0')->queryAll();
         test($bool);
-    } 
+    }
 
     //订单凌晨四点平仓
     public function actionUpdate()
@@ -1931,5 +1931,5 @@ public function actionGetLineDay()//日线接口，60天累进
         }
 
     }
-    
+
 }
