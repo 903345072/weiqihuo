@@ -7,7 +7,7 @@
                     <li class="ri"></li>
         </ul>
         <div style="height: .45rem; width: 100%;"></div>
-        
+
         <!--      买入        -->
         <ul class="buy-choose col-1">
             <li class="num">交易数量<span id="num" class="fr">
@@ -15,7 +15,7 @@
 			<em class="active" data-num="1">1手</em><em data-num="2">2手</em><em data-num="3">3手</em><em data-num="5">5手</em><em data-num="10">10手</em>
 
 
-			
+
 			</span></li>
             <li>触发止盈(%)
                 <span class="win fr pr">
@@ -32,7 +32,7 @@
                 </span>
             </li>
         </ul>
-        
+
         <ul class="buy-choose2 col-1">
             <!--li>金券: <em id="bondNum" class="col-up">0</em> 张<div class="fr bg-btn"-->
                         <span class="yuan-btn"></span></div></li>
@@ -62,12 +62,14 @@
                 <em class="active" data-num="1">3000</em><em data-num="2">5000</em><em data-num="3">10000</em><em data-num="4">30000</em>
             <?php }elseif($product->code == 'hf_CAD'){ ?>
                 <em class="active" data-num="1">100</em><em data-num="2">500</em><em data-num="3">1000</em><em data-num="4">5000</em>
+            <?php }elseif($product->code == 'nf_NI0'){ ?>
+                <em class="active" data-num="1">100</em><em data-num="2">500</em><em data-num="3">5000</em><em data-num="4">10000</em>
 			<?php }else{ ?>
 			<em class="active" data-num="1">200</em><em data-num="2">500</em><em data-num="3">1000</em><em data-num="4">2000</em>
 			<?php } ?>
-			
 
-			
+
+
 			</span></li>
             <div id="bondHide">
                 <li>交易&gt;交易综合费(元)<span id="handingMoney" class="fr"></span></li>
@@ -82,7 +84,7 @@
         <p class="tip">投资有风险，入市须谨慎</p>
         <div style="height: .4rem;width: 100%;"></div>
         <button class="confirm" id="buy"></button>
-        
+
         <script>
             $(function(){
                 var type = '<?=$data['state'] ?>';
@@ -102,15 +104,15 @@
                 $('#handingMoney').addClass('col-' + type);
                 $('#totalMoney').addClass('col-' + type);
                 $('#unit').addClass('col-' + type);
-               
-                
-                
+
+
+
                 //购买商品数据
-                var buyData = {}; 
+                var buyData = {};
                 //根据手数更新保证金选项
                 function changeMargin(){
                     /*$("#margin em").each(function(index){
-						
+
                         $(this).text(buyData.singleMargin * Number($("#num em.active").data('num')) * (index + 1));
                     })*/
                 }
@@ -131,15 +133,15 @@
                 function changeTotalMoney(){
 					changeHandingMoney();
                     $('#totalMoney').text(Number($('#handingMoney').text()) + Number($("#margin em.active").text()*$("#num em.active").data('num')));
-					
-					
+
+
 					$('#unit').text('每波动' + buyData.unit + '点价格为：' + ((buyData.pointMoney)*$("#num em.active").data('num')*(Number($("#margin em.active").text())/buyData.singleMargin)).toFixed(3) + '元');
-					
-					
+
+
                 }
                 //更新代金券选中和禁用
                 function changeBond(){
-                    
+
                     $('[name="bond"]').each(function(){
                         $(this).removeAttr('disabled');
                         if(Number($(this).next().text()) < Number($("#margin em.active").text())){
@@ -167,7 +169,7 @@
                                 bondClone.find('em').eq(0).text(this.bondMoney);
                                 bondContainer.append(bondClone);
                             })
-                            
+
                             changeBond();
                             //注册金券按钮点击事件
                             $(".bg-btn").on("click",function(){
@@ -196,7 +198,7 @@
                         })
                     }
                 },1000)
-                
+
                 var num = 0;
                 //获取商品数据
                 $.ajax({
@@ -207,9 +209,9 @@
                     },
                     success: function(data){
                         buyData = data.data.product;
-						
+
 						//console.log(buyData);
-                        
+
                         if(buyData.unit.toString().split('.').length > 1){
                             num = buyData.unit.toString().split('.')[1].length;
                         }
@@ -256,7 +258,7 @@
                             var ost = $('#ost');
                             var type = $(this).data('ost');
                             if(type == 'plus'){
-                                
+
                                 //ost.val(parseFloat(((Number(ost.val()) + buyData.step) > (buyData.ostMaxPrice * Number($("#margin em.active").data('num'))) ? (buyData.ostMaxPrice * Number($("#margin em.active").data('num'))) : (Number(ost.val()) + buyData.step)).toFixed(num)));
 								ost.val(parseFloat(((Number(ost.val()) + 5) > 100 ? 100 : (Number(ost.val()) + 5)).toFixed(num)));
                             }else{
@@ -264,14 +266,14 @@
                                 ost.val(parseFloat(((Number(ost.val()) - 5) < 10 ? 10 : (Number(ost.val()) - 5)).toFixed(num)));
                             }
                         })
-                        
+
                     }
                 })
-                
-                
-                
-                
-                
+
+
+
+
+
                 //确定按钮点击
                 $("#buy").on("click",function(){
                     var margin = $("#margin em.active").text();
@@ -331,13 +333,13 @@
                                 }
                             })
                             layer.close(index);
-                        }  
+                        }
                     });
                 })
-                
+
             })
         </script>
-    
+
 </body></html>
 <script>
 document.addEventListener('plusready', function() {
