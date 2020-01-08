@@ -1,7 +1,24 @@
 <?php common\components\View::regCss('login.css') ?>
 <?php common\components\View::regCss('iconfont/iconfont.css') ?>
 <?php use frontend\models\Order;?>
-
+<script type="text/javascript">
+    //iOS Web APP中点击链接跳转到Safari 浏览器新标签页的问题 devework.com
+    //stanislav.it/how-to-prevent-ios-standalone-mode-web-apps-from-opening-links-in-safari
+    if(("standalone" in window.navigator) && window.navigator.standalone){
+        var noddy, remotes = false;
+        document.addEventListener('click', function(event) {
+            noddy = event.target;
+            while(noddy.nodeName !== "A" && noddy.nodeName !== "HTML") {
+                noddy = noddy.parentNode;
+            }
+            if('href' in noddy && noddy.href.indexOf('http') !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes))
+            {
+                event.preventDefault();
+                document.location.href = noddy.href;
+            }
+        },false);
+    }
+</script>
 <style type="text/css">body{background: #191919;font-size: 1.6rem;}</style>
 <div class="container">
     <div class="liq_box">
@@ -61,13 +78,13 @@
                     <div class="col-xs-6 liq_border liq_borders">
                         <font class="liq_font pull-left">止盈：</font>
                         <span class="styled-select">
-                    <?= $order->stop_profit_point ?>%      
+                    <?= $order->stop_profit_point ?>%
                   </span>
                     </div>
                     <div class="col-xs-6  liq_borders">
                         <font class="liq_font">止损：</font>
-                        <span class="styled-select">              
-                  <?= $order->stop_loss_point ?>%    
+                        <span class="styled-select">
+                  <?= $order->stop_loss_point ?>%
                   </span>
                     </div>
                 </div>

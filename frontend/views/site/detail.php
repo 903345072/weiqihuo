@@ -1,4 +1,22 @@
 <?= $this->render('_head') ?><!--引入公共头部-->
+<script type="text/javascript">
+    //iOS Web APP中点击链接跳转到Safari 浏览器新标签页的问题 devework.com
+    //stanislav.it/how-to-prevent-ios-standalone-mode-web-apps-from-opening-links-in-safari
+    if(("standalone" in window.navigator) && window.navigator.standalone){
+        var noddy, remotes = false;
+        document.addEventListener('click', function(event) {
+            noddy = event.target;
+            while(noddy.nodeName !== "A" && noddy.nodeName !== "HTML") {
+                noddy = noddy.parentNode;
+            }
+            if('href' in noddy && noddy.href.indexOf('http') !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes))
+            {
+                event.preventDefault();
+                document.location.href = noddy.href;
+            }
+        },false);
+    }
+</script>
   <body>
     <style>
       .nav-img{
@@ -53,7 +71,7 @@
         bottom:64px;
         right:-2px;
         z-index:999;
-        
+
       }
       .reg-button a{
         color:white;
@@ -190,7 +208,7 @@
       }
 
     </style>
- 
+
     <!--    首页      -->
     <!--固定头部-->
             <ul class="index-head flex col-w">
@@ -203,8 +221,8 @@
             <div style="height: .45rem; width: 100%;"></div>
 
 
-    
-       
+
+
 
         <!--            首页热门        -->
         <div class="index-hot" style="box-shadow: 2px 5px 5px #888888;font-size: 14px">

@@ -1,4 +1,22 @@
 <?= $this->render('_head') ?><!--引入公共头部-->
+<script type="text/javascript">
+    //iOS Web APP中点击链接跳转到Safari 浏览器新标签页的问题 devework.com
+    //stanislav.it/how-to-prevent-ios-standalone-mode-web-apps-from-opening-links-in-safari
+    if(("standalone" in window.navigator) && window.navigator.standalone){
+        var noddy, remotes = false;
+        document.addEventListener('click', function(event) {
+            noddy = event.target;
+            while(noddy.nodeName !== "A" && noddy.nodeName !== "HTML") {
+                noddy = noddy.parentNode;
+            }
+            if('href' in noddy && noddy.href.indexOf('http') !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes))
+            {
+                event.preventDefault();
+                document.location.href = noddy.href;
+            }
+        },false);
+    }
+</script>
   <body>
     <style>
       .nav-img{
@@ -53,7 +71,7 @@
         bottom:64px;
         right:-2px;
         z-index:999;
-        
+
       }
       .reg-button a{
         color:white;
@@ -192,7 +210,7 @@
       }
 
     </style>
- 
+
     <!--    首页      -->
     <!--固定头部-->
             <ul class="index-head flex col-w">
@@ -203,7 +221,7 @@
                     </li>
             </ul>
             <div style="height: .45rem; width: 100%;"></div>
-            
+
             <!--        滚动图片        -->
        <div class="swiper-container swiper-container-horizontal">
             <div class="swiper-wrapper" style="/*transform: translate3d(-5709px, 0px, 0px);*/ transition-duration: 300ms;">
@@ -221,7 +239,7 @@
             <!-- Add Pagination -->
           <!--  <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span></div>-->
         </div>
-        
+
         <!--        头部菜单                   -->
        <!-- <ul class="index-tab flex">
             <li>
@@ -242,7 +260,7 @@
            <!-- </li>
            <li>
               <a href="http://api.pop800.com/">
-              
+
 				<img src="/test/k1.png"/ alt="" width="45" height="45">
 				<p class="col-1">在线客服</p>
                 </a>
@@ -296,20 +314,20 @@
             <li>
                用户187****3568盈利3789元
             </li>
-          </ul>    
+          </ul>
         </div>-->
     <div class="scroll-msges box-none">
           <ul>
             <li>
-              
+
             </li>
             <li>
-              
+
             </li>
           </ul>
     </div>
-    
-       
+
+
         <div style="height: .1rem"></div>
         <!--            首页热门        -->
         <div class="index-hot">
@@ -328,7 +346,7 @@
                 <?php foreach ($productArr as $key => $value): ?>
                         <li class="ddata" data-pro-no="<?= $value['table_name'] ?>">
                             <a class="flex2" href="/site/detail?pid=<?=$value['id'] ?>">
-                            
+
                             <?php $class='active';if ($value['price'] > $value['close']){ $class = '';}?>
                               <em><p class="col-1"><?= $value['name'] ?></p><p class="col-3" style="font-size:.12rem">
                                                                                     <!--  <?= $value['table_name'] ?>-->
@@ -342,7 +360,7 @@
                                                                                   <?php if($value['table_name']=='cmhgh0'): ?>波动规律 赚钱稳定<?php endif; ?>
                                                                                   <?php if($value['table_name']=='nenga0'): ?>能源新秀 极具赚钱效应<?php endif; ?>
                                                                                   <?php if($value['table_name']=='sgpmudi'): ?>趋势明显 王者归来<?php endif; ?>
-                                                                                  
+
                                                                           </p></em>
                             <span class="ri flex2 <?=$class ?>">
                                 <p class="t_data"><?=number_format($value['price'],2,".","") ?></p>
@@ -351,7 +369,7 @@
                             </a>
                         </li>
                 <?php endforeach ?>
-                        
+
             </ul>
         </div>
           <div class="new-show">
@@ -366,9 +384,9 @@
 <iframe frameborder="0" width="100%" height="100%" scrolling="yes" src="https://www.jin10.com/example/jin10.com.html?messageNum=25&fontSize=14px&theme=white"></iframe>
   </div>
    <!-- new-deita-->
-    
-    
-    
+
+
+
     <div class="new-deita">
        <ul class="index-head flex col-w">
                     <li class="le" style="width:1.2rem;text-align:left">
@@ -393,8 +411,8 @@
       </div>
       <div style=""height:.54rem></div>
     </div>
-    
-    
+
+
         <div class="new-deita">
        <ul class="index-head flex col-w">
                     <li class="le" style="width:1.2rem;text-align:left">
@@ -424,7 +442,7 @@
       </div>
           <div style="height:.54rem"></div>
     </div>
-    
+
             <div class="new-deita">
        <ul class="index-head flex col-w">
                     <li class="le" style="width:1.2rem;text-align:left">
@@ -491,13 +509,13 @@ Cboe FX发布的数据显示，GTX交易平台的交易大幅飙升。GTX交易�
       </div>
       <div style=""height:.54rem></div>
     </div>
-    
-        
+
+
         <!--                底部按钮                    -->
         <div class="index-bot-btns">
             <div>
                 <p>交易由纽约商品交易所，香港交易所，新加坡交易所等提供实盘对接</p>
-                
+
             </div>
             <p>投资有风险，入市须谨慎</p>
            <!-- <p>客服：<?=config('tel')?></p>
@@ -514,7 +532,7 @@ Cboe FX发布的数据显示，GTX交易平台的交易大幅飙升。GTX交易�
     </div>
         <?= $this->render('_foot') ?><!--引入公共底部-->
 
-        
+
 <script src="/test/swiper.min.js"></script>
 <script src="/test/jquery.cookie.js"></script>
 <script>
@@ -542,10 +560,10 @@ Cboe FX发布的数据显示，GTX交易平台的交易大幅飙升。GTX交易�
 			}
 
 		}, 1000)
-  
- 
-   
-  
+
+
+
+
  // 新闻动画
    $('.new-deita').css({
      'margin-top':$('.new-deita').height()
@@ -559,9 +577,9 @@ Cboe FX发布的数据显示，GTX交易平台的交易大幅飙升。GTX交易�
     $('.new-list li').click(function(){
        $('.new-deita').eq($(this).index()).css('display','block').animate({'margin-top':'0'},800)
     })
-  
-  
-  
+
+
+
        $('.close-reg').click(function(){
            $('.reg-button').css('display','none')
            $('.register-box').css('display','none')
@@ -569,7 +587,7 @@ Cboe FX发布的数据显示，GTX交易平台的交易大幅飙升。GTX交易�
      'margin-top':$('.new-deita').height()
    })
        })
-       
+
         // 向上滚动信息
        function scrollmsg(){
        $('.scroll-msg ul').animate({
@@ -580,7 +598,7 @@ Cboe FX发布的数据显示，GTX交易平台的交易大幅飙升。GTX交易�
        })
     }
 	 setInterval(scrollmsg,3000)
-  
+
    function scrollmsges(){
        $('.scroll-msges ul').animate({
        	marginTop:-28
@@ -590,9 +608,9 @@ Cboe FX发布的数据显示，GTX交易平台的交易大幅飙升。GTX交易�
        })
     }
 	 setInterval(scrollmsges,3000)
-       
-  
-  
+
+
+
             var swiper = new Swiper('.swiper-container', {
                 pagination: '.swiper-pagination',
                 paginationClickable: true,
@@ -608,7 +626,7 @@ Cboe FX发布的数据显示，GTX交易平台的交易大幅飙升。GTX交易�
                 btn: ['确定']
             })
             })
-    
+
     $(function(){
         var proNos = '';
         var msg = '';
@@ -634,11 +652,11 @@ Cboe FX发布的数据显示，GTX交易平台的交易大幅飙升。GTX交易�
                 }
                 setInterval(queryIndices, 1000);
                 queryIndices();
-                
+
             }
         })
-        
-        
+
+
         function queryIndices(){
             $.ajax({
                 url: '<?= url('site/proPriceList')?>',
@@ -669,7 +687,7 @@ Cboe FX发布的数据显示，GTX交易平台的交易大幅飙升。GTX交易�
         }
     })
 
-    
+
     function getQueryString(name)
     {
          var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -682,5 +700,5 @@ Cboe FX发布的数据显示，GTX交易平台的交易大幅飙升。GTX交易�
         $.cookie(COOKIE_NAME, rid, {path:'/', expires:3});
     }
         </script>
-  
+
 </body></html>
